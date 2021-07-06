@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".ExpenseList">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Expense List"
+        android:textSize="25sp"
+        android:background="@color/teal_200"
+        android:gravity="center"
+        android:padding="10sp">
+
+    </TextView>
+    <ListView
+        android:id="@+id/expenseListViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#fff2"
+        android:dividerHeight="2sp"
+        android:listSelector="#FFAB00">
+
+    </ListView>
+
+
+</LinearLayout>

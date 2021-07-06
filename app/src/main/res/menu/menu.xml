@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title = "Share"
+        android:id="@+id/shareId"
+        >
+    </item>
+    <item
+        android:title = "About"
+        android:id="@+id/aboutId"
+        >
+    </item>
+    <item
+        android:title = "Logout"
+        android:id="@+id/exitId"
+        >
+    </item>
+    <item
+        android:title = "Setting"
+        android:id="@+id/settingId"
+        >
+    </item>
+
+</menu>

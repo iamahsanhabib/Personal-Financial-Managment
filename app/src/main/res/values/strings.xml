@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RegisterSignIn</string>
+    <string-array name="income_category">
+        android:textSize="25sp"
+        android:gravity="center"
+        <item>Salary</item>
+        <item>Tution</item>
+        <item>Family</item>
+        <item>Others</item>
+    </string-array>
+</resources>
