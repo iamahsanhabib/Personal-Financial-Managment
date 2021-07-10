@@ -25,7 +25,8 @@ import java.util.Calendar;
 public class Day extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
     private TextView income, expense, incomeList, expenseList, balance, incomeShow, expenseShow;
-    private TextView plane1;
+    private TextView plane1, home1, stationary1,food1,sport1,communication1,breakfast1;
+    private TextView train1, shopping1, shirt1, car1,book1,movie1, gift1;
     DatabaseReference dRef;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -55,6 +56,19 @@ public class Day extends AppCompatActivity implements View.OnClickListener {
         expenseShow = findViewById(R.id.expenseTextViewId);
 
         plane1 = findViewById(R.id.planeId1);
+        home1 = findViewById(R.id.homeId1);
+        stationary1 = findViewById(R.id.stationaryId1);
+        food1 = findViewById(R.id.foodId1);
+        sport1 = findViewById(R.id.sportId1);
+        communication1 = findViewById(R.id.communicatinId1);
+        breakfast1 = findViewById(R.id.breakfastId1);
+        train1 = findViewById(R.id.trainId1);
+        shopping1 = findViewById(R.id.shoppingId1);
+        shirt1 = findViewById(R.id.shirtId1);
+        car1 = findViewById(R.id.carId1);
+        book1 = findViewById(R.id.bookId1);
+        movie1 = findViewById(R.id.movieId1);
+        gift1 = findViewById(R.id.giftId1);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -140,11 +154,54 @@ public class Day extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
                 int expense = 0, income=0;
+                int[] categoryAmount={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Expense").child("Information").getChildren()){
                     String k = dataSnapshot1.child("date").getValue(String.class);
                     String l = getTodaysDate();
                     if(k.equals(l)) {
                         expense = expense + dataSnapshot1.child("amount").getValue(Integer.class);
+                        if(dataSnapshot1.child("category").getValue(String.class).equals("Aeroplane")){
+                            categoryAmount[0]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Home")){
+                            categoryAmount[1]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Stationary")){
+                            categoryAmount[2]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Food")){
+                            categoryAmount[3]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Sports")){
+                            categoryAmount[4]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Communication")){
+                            categoryAmount[5]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Breakfast")){
+                            categoryAmount[6]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Train")){
+                            categoryAmount[7]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Shopping")){
+                            categoryAmount[8]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Shirt")){
+                            categoryAmount[9]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Car")){
+                            categoryAmount[10]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Books")){
+                            categoryAmount[11]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Movie")){
+                            categoryAmount[12]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
+                        else if(dataSnapshot1.child("category").getValue(String.class).equals("Gift")){
+                            categoryAmount[13]+=dataSnapshot1.child("amount").getValue(Integer.class);
+                        }
                     }
                 }
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Income").child("Information").getChildren()){
@@ -157,7 +214,21 @@ public class Day extends AppCompatActivity implements View.OnClickListener {
                 balance.setText(String.valueOf(income-expense));
                 incomeShow.setText(String.valueOf(income));
                 expenseShow.setText(String.valueOf(expense));
-                plane1.setText(String.valueOf(expense));
+                if(expense==0)expense=1;
+                plane1.setText(String.valueOf(categoryAmount[0]*100/expense)+"%");
+                home1.setText(String.valueOf(categoryAmount[1]*100/expense)+"%");
+                stationary1.setText(String.valueOf(categoryAmount[2]*100/expense)+"%");
+                food1.setText(String.valueOf(categoryAmount[3]*100/expense)+"%");
+                sport1.setText(String.valueOf(categoryAmount[4]*100/expense)+"%");
+                communication1.setText(String.valueOf(categoryAmount[5]*100/expense)+"%");
+                breakfast1.setText(String.valueOf(categoryAmount[6]*100/expense)+"%");
+                train1.setText(String.valueOf(categoryAmount[7]*100/expense)+"%");
+                shopping1.setText(String.valueOf(categoryAmount[8]*100/expense)+"%");
+                shirt1.setText(String.valueOf(categoryAmount[9]*100/expense)+"%");
+                car1.setText(String.valueOf(categoryAmount[10]*100/expense)+"%");
+                book1.setText(String.valueOf(categoryAmount[11]*100/expense)+"%");
+                movie1.setText(String.valueOf(categoryAmount[12]*100/expense)+"%");
+                gift1.setText(String.valueOf(categoryAmount[13]*100/expense)+"%");
             }
 
             @Override
