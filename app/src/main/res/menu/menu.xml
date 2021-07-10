@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:title = "Share"
-        android:id="@+id/shareId"
-        >
+    <group>
+        <item
+            android:title = "Share"
+            android:id="@+id/shareId"
+            >
+        </item>
+        <item
+            android:title = "About"
+            android:id="@+id/aboutId"
+            >
+        </item>
+        <item
+            android:title = "Logout"
+            android:id="@+id/exitId"
+            >
+        </item>
+
+    </group>
+    <item android:title="Setting">
+        <menu>
+            <item
+                android:title="Dark Theme"
+                android:id="@+id/darkThemeId">
+
+            </item>
+            <item
+                android:title="Change Password"
+                android:id="@+id/changePassId">
+            </item>
+            <item android:title="Currency">
+                <menu>
+                    <item
+                        android:title="Tk"
+                        android:id="@+id/tkId">
+
+                    </item>
+                    <item
+                        android:title="USD"
+                        android:id="@+id/usdId">
+                    </item>
+                    <item
+                        android:title="Rupee"
+                        android:id="@+id/rupeeId">
+                    </item>
+                </menu>
+
+            </item>
+        </menu>
+
     </item>
-    <item
-        android:title = "About"
-        android:id="@+id/aboutId"
-        >
+    <item android:title="Find Your Data">
+        <menu>
+            <item
+                android:id="@+id/dayId"
+                android:title="Day">
+            </item>
+            <item
+                android:id="@+id/weekId"
+                android:title="Week">
+            </item>
+            <item
+                android:id="@+id/monthId"
+                android:title="Month">
+            </item>
+            <item
+                android:id="@+id/yearId"
+                android:title="Year">
+            </item>
+            <item
+                android:id="@+id/allId"
+                android:title="All">
+            </item>
+        </menu>
+
     </item>
-    <item
-        android:title = "Logout"
-        android:id="@+id/exitId"
-        >
-    </item>
-    <item
-        android:title = "Setting"
-        android:id="@+id/settingId"
-        >
-    </item>
+
 
 </menu>

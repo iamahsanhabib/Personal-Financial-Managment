@@ -1,10 +1,9 @@
 package com.example.registersignin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +36,6 @@ public class ExpenseList extends AppCompatActivity {
 
         listView = findViewById(R.id.expenseListViewId);
     }
-    int sum = 0;
     @Override
     protected  void onStart(){
 
@@ -46,13 +44,11 @@ public class ExpenseList extends AppCompatActivity {
             public void onDataChange( DataSnapshot dataSnapshot) {
                 dataInformation.clear();
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    sum = sum + dataSnapshot1.child("amount").getValue(Integer.class);
                     StoreData data = dataSnapshot1.getValue(StoreData.class);
                     dataInformation.add(data);
                 }
                 expenseListAdapter = new ExpenseListAdapter(ExpenseList.this, dataInformation);
                 listView.setAdapter(expenseListAdapter);
-                System.out.println(sum);
             }
 
             @Override

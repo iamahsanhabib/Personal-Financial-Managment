@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RegisterSignIn">
-        <activity android:name=".ExpenseList"></activity>
+        <activity android:name=".All"></activity>
+        <activity android:name=".Year" />
+        <activity android:name=".Week" />
+        <activity android:name=".Day" />
+        <activity android:name=".ExpenseList" />
         <activity android:name=".IncomeList" />
         <activity android:name=".Add_Expense" />
         <activity android:name=".Income" />

@@ -20,9 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Calendar;
-
-public class Registration extends AppCompatActivity implements View.OnClickListener {
+public class All extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
     private TextView income, expense, incomeList, expenseList, balance, incomeShow, expenseShow;
     private TextView plane1;
@@ -32,7 +30,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_all);
 
         auth = FirebaseAuth.getInstance();
         String userId = user.getUid();
@@ -81,7 +79,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             FirebaseUser user = auth.getInstance().getCurrentUser();
             auth.signOut();
             finish();
-            startActivity(new Intent(Registration.this, Login.class));
+            startActivity(new Intent(All.this, Login.class));
         }
         else if (id==R.id.dayId){
             Intent intent = new Intent(getApplicationContext(), Day.class);
@@ -140,20 +138,13 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
                 int expense = 0, income=0;
-                String[] x = getTodaysDate().split(" ");;
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Expense").child("Information").getChildren()){
-                    String[] k = dataSnapshot1.child("date").getValue(String.class).split(" ");
-                    if(x[0].equals(k[0]) && x[2].equals(k[2])) {
-                        expense = expense + dataSnapshot1.child("amount").getValue(Integer.class);
-                    }
+                    expense = expense + dataSnapshot1.child("amount").getValue(Integer.class);
                 }
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Income").child("Information").getChildren()){
-                    String[] k = dataSnapshot1.child("date").getValue(String.class).split(" ");
-                    if(x[0].equals(k[0]) && x[2].equals(k[2])) {
-                        income = income + dataSnapshot1.child("amount").getValue(Integer.class);
-                    }
-
+                    income = income + dataSnapshot1.child("amount").getValue(Integer.class);
                 }
+                System.out.println(expense + " " + income);
                 balance.setText(String.valueOf(income-expense));
                 incomeShow.setText(String.valueOf(income));
                 expenseShow.setText(String.valueOf(expense));
@@ -166,49 +157,5 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         });
         super.onStart();
-    }
-    public String getTodaysDate()
-    {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        month = month + 1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day, month, year);
-    }
-
-    public String makeDateString(int day, int month, int year)
-    {
-        return getMonthFormat(month) + " " + day + " " + year;
-    }
-
-    public String getMonthFormat(int month)
-    {
-        if(month == 1)
-            return "Jan";
-        if(month == 2)
-            return "Feb";
-        if(month == 3)
-            return "Mar";
-        if(month == 4)
-            return "Apr";
-        if(month == 5)
-            return "May";
-        if(month == 6)
-            return "Jun";
-        if(month == 7)
-            return "Jul";
-        if(month == 8)
-            return "Aug";
-        if(month == 9)
-            return "Sep";
-        if(month == 10)
-            return "Oct";
-        if(month == 11)
-            return "Nov";
-        if(month == 12)
-            return "Dec";
-
-        return getTodaysDate();
     }
 }

@@ -8,13 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
-        android:layout_marginTop="10dp">
+        android:padding="10dp">
         <TextView
             android:id="@+id/listDateId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Date"
+            android:layout_marginLeft="5sp"
             android:textSize="15dp">
 
         </TextView>

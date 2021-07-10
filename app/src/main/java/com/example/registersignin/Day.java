@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
-public class Registration extends AppCompatActivity implements View.OnClickListener {
+public class Day extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
     private TextView income, expense, incomeList, expenseList, balance, incomeShow, expenseShow;
     private TextView plane1;
@@ -32,7 +32,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_week);
 
         auth = FirebaseAuth.getInstance();
         String userId = user.getUid();
@@ -81,7 +81,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             FirebaseUser user = auth.getInstance().getCurrentUser();
             auth.signOut();
             finish();
-            startActivity(new Intent(Registration.this, Login.class));
+            startActivity(new Intent(Day.this, Login.class));
         }
         else if (id==R.id.dayId){
             Intent intent = new Intent(getApplicationContext(), Day.class);
@@ -133,26 +133,26 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
+        
     @Override
     protected void onStart(){
         dRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
                 int expense = 0, income=0;
-                String[] x = getTodaysDate().split(" ");;
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Expense").child("Information").getChildren()){
-                    String[] k = dataSnapshot1.child("date").getValue(String.class).split(" ");
-                    if(x[0].equals(k[0]) && x[2].equals(k[2])) {
+                    String k = dataSnapshot1.child("date").getValue(String.class);
+                    String l = getTodaysDate();
+                    if(k.equals(l)) {
                         expense = expense + dataSnapshot1.child("amount").getValue(Integer.class);
                     }
                 }
                 for (DataSnapshot dataSnapshot1: dataSnapshot.child("Income").child("Information").getChildren()){
-                    String[] k = dataSnapshot1.child("date").getValue(String.class).split(" ");
-                    if(x[0].equals(k[0]) && x[2].equals(k[2])) {
+                    String k = dataSnapshot1.child("date").getValue(String.class);
+                    String l = getTodaysDate();
+                    if(k.equals(l)) {
                         income = income + dataSnapshot1.child("amount").getValue(Integer.class);
                     }
-
                 }
                 balance.setText(String.valueOf(income-expense));
                 incomeShow.setText(String.valueOf(income));

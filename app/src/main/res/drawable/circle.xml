@@ -6,7 +6,7 @@
             <solid android:color="#FFFF"/>
             <stroke android:color="#00BFA5" android:width="5dp"/>
             <!-- Set the same value for both width and height to get a circular shape -->
-            <size android:width="220dp" android:height="220dp"/>
+            <size android:width="100dp" android:height="100dp"/>
         </shape>
     </item>
 </selector>
