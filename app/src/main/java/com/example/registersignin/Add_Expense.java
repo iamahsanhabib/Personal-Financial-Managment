@@ -5,11 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +20,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class Add_Expense extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class Add_Expense extends AppCompatActivity implements View.OnClickListener{
     private TextView expenseCancel;
     private EditText amount;
     private Button addExpenseBtn;
+    private TextView addPlane, addHome, addStationary, addFood, addSport, addCall, addBreakfast;
+    private  TextView addTrain, addShirt, addShooping, addCar, addMovie, addGift, addBook;
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference databaseReference;
-
-    String[] itemNames={"Home","Breakfast","Communication","Train","Movie","Gift","Shirt","Books","Car","Sports","Food","Aeroplane","Shopping","Stationary"};
-    int flags[] = {R.drawable.ic_home, R.drawable.breakfast, R.drawable.ic_call, R.drawable.ic_train, R.drawable.ic_filter, R.drawable.ic_gift, R.drawable.tshirt, R.drawable.ic_book,R.drawable.ic_car,R.drawable.ic_sport, R.drawable.ic_food,R.drawable.ic_plane, R.drawable.ic_phone, R.drawable.ic_taxi };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +45,35 @@ public class Add_Expense extends AppCompatActivity implements View.OnClickListen
         expenseCancel.setOnClickListener(this);
 
         amount = findViewById(R.id.addExpenseAmountId);
-        addExpenseBtn = findViewById(R.id.addExpenseBtnId);
 
-        addExpenseBtn.setOnClickListener(this);
-
-        Spinner spin = (Spinner) findViewById(R.id.simpleSpinner);
-        spin.setOnItemSelectedListener(this);
-
-        ExpenseAdapter expenseAdapter=new ExpenseAdapter(getApplicationContext(),flags,itemNames);
-        spin.setAdapter(expenseAdapter);
+        addPlane = findViewById(R.id.addPlaneId);
+        addPlane.setOnClickListener(this);
+        addHome = findViewById(R.id.addHomeId);
+        addHome.setOnClickListener(this);
+        addStationary = findViewById(R.id.addStationaryId);
+        addStationary.setOnClickListener(this);
+        addFood = findViewById(R.id.addFoodId);
+        addFood.setOnClickListener(this);
+        addSport = findViewById(R.id.addSportId);
+        addSport.setOnClickListener(this);
+        addCall = findViewById(R.id.addCommunicationId);
+        addCall.setOnClickListener(this);
+        addBreakfast = findViewById(R.id.addBreakfastId);
+        addBreakfast.setOnClickListener(this);
+        addTrain = findViewById(R.id.addTrainId);
+        addTrain.setOnClickListener(this);
+        addShooping = findViewById(R.id.addShoppingId);
+        addShooping.setOnClickListener(this);
+        addShirt = findViewById(R.id.addShirtId);
+        addShirt.setOnClickListener(this);
+        addCar = findViewById(R.id.addCarId);
+        addCar.setOnClickListener(this);
+        addBook = findViewById(R.id.addBookId);
+        addBook.setOnClickListener(this);
+        addMovie = findViewById(R.id.addMovieId);
+        addMovie.setOnClickListener(this);
+        addGift = findViewById(R.id.addGiftId);
+        addGift.setOnClickListener(this);
 
         String userId = user.getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference(userId);
@@ -64,37 +81,133 @@ public class Add_Expense extends AppCompatActivity implements View.OnClickListen
 
     int day1,month1,year1;
 
-    String itemName;
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        Toast.makeText(getApplicationContext(), itemNames[position], Toast.LENGTH_LONG).show();
-        itemName = itemNames[position];
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
     @Override
     public void onClick(View view) {
+        String expense = amount.getText().toString().trim();
         switch (view.getId()){
             case R.id.expenseCancelId:
                 Intent intent = new Intent(getApplicationContext(), Registration.class);
                 startActivity(intent);
                 break;
-            case R.id.addExpenseBtnId:
-                String expense = amount.getText().toString().trim();
-                if(expense.isEmpty()){
+            case R.id.addPlaneId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Aeroplane");
+                }
+                break;
+            case R.id.addHomeId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Home");
+                }
+                break;
+            case R.id.addStationaryId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Stationary");
+                }
+                break;
+            case R.id.addFoodId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Food");
+                }
+                break;
+            case R.id.addSportId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Sport");
+                }
+                break;
+            case R.id.addCommunicationId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Communication");
+                }
+                break;
+            case R.id.addBreakfastId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Breakfast");
+                }
+                break;
+            case R.id.addTrainId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Train");
+                }
+                break;
+            case R.id.addShoppingId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Shopping");
+                }
+                break;
+            case R.id.addShirtId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("T-Shirt");
+                }
+                break;
+            case R.id.addCarId:
+                if(expense.isEmpty()) {
                     amount.setError("Amount can't be empty!");
                     amount.requestFocus();
                 }
                 else{
-                    saveData();
-                    intent = new Intent(getApplicationContext(), Registration.class);
-                    startActivity(intent);
-                    break;
+                    saveData("Car");
                 }
+                break;
+            case R.id.addBookId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Books");
+                }
+                break;
+            case R.id.addMovieId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Movies");
+                }
+                break;
+            case R.id.addGiftId:
+                if(expense.isEmpty()) {
+                    displayError();
+                }
+                else{
+                    saveData("Gift");
+                }
+                break;
         }
+    }
+
+    private void displayError() {
+        amount.setError("Amount can't be empty!");
+        amount.requestFocus();
     }
 
     public String getTodaysDate()
@@ -107,16 +220,17 @@ public class Add_Expense extends AppCompatActivity implements View.OnClickListen
         day1 = day; month1 = month; year1 = year;
         return makeDateString(day, month, year);
     }
-    private void saveData() {
+    private void saveData(String category) {
         String expense = amount.getText().toString().trim();
         if(user!=null) {
             int balance = Integer.parseInt(expense);
-            String category = itemName;
             String date = makeDateString(day1, month1, year1);
-            databaseReference.child("Expense").child("Category").child(category).setValue(balance);
             String key = databaseReference.push().getKey();
             StoreData storeData = new StoreData(category, balance, date);
             databaseReference.child("Expense").child("Information").child(key).setValue(storeData);
+            Toast.makeText(getApplicationContext(),"Data Saved Successfully!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), Registration.class);
+            startActivity(intent);
         }
     }
     public void initDatePicker()

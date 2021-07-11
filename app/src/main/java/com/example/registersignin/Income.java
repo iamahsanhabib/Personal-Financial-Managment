@@ -5,11 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class Income extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private TextView cancel;
+public class Income extends AppCompatActivity implements View.OnClickListener {
+    private TextView cancel, addSalary, addFamily, addTution, addBusiness, addOthers;
     private EditText amount;
     private Button addIncomeBtn;
     private DatePickerDialog datePickerDialog;
@@ -31,9 +29,6 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
     private FirebaseAuth auth;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference databaseReference;
-
-    String[] itemNames={"Family","Salary","Tution","Business","Others"};
-    int flags[] = {R.drawable.ic_home, R.drawable.salary, R.drawable.tution, R.drawable.business, R.drawable.others};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +39,22 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
 
-        Spinner spin = (Spinner) findViewById(R.id.simpleSpinner1);
-        spin.setOnItemSelectedListener(this);
-
-        ExpenseAdapter expenseAdapter=new ExpenseAdapter(getApplicationContext(),flags,itemNames);
-        spin.setAdapter(expenseAdapter);
         cancel = findViewById(R.id.incomeCancelId);
         cancel.setOnClickListener(this);
 
         amount = findViewById(R.id.addIncomeAmountId);
-        addIncomeBtn = findViewById(R.id.addIncomeBtnId);
 
-        addIncomeBtn.setOnClickListener(this);
+        addSalary = findViewById(R.id.addSalaryId);
+        addSalary.setOnClickListener(this);
+        addFamily = findViewById(R.id.addFamilyId);
+        addFamily.setOnClickListener(this);
+        addTution = findViewById(R.id.addTutionId);
+        addTution.setOnClickListener(this);
+        addBusiness = findViewById(R.id.addBusinessId);
+        addBusiness.setOnClickListener(this);
+        addOthers = findViewById(R.id.addOthersId);
+        addOthers.setOnClickListener(this);
+
         String userId = user.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference(userId);
@@ -63,38 +62,49 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
     int day1,month1,year1;
     @Override
     public void onClick(View view) {
+        String income = amount.getText().toString().trim();
         switch (view.getId()){
+            case R.id.addSalaryId:
+                if(income.isEmpty()){
+                    errorDisplay();
+                }
+                else saveData("Salary");
+                break;
+            case R.id.addFamilyId:
+                if(income.isEmpty()){
+                    errorDisplay();
+                }
+                else saveData("Family");
+                break;
+            case R.id.addTutionId:
+                if(income.isEmpty()){
+                    errorDisplay();
+                }
+                else saveData("Tution");
+                break;
+            case R.id.addBusinessId:
+                if(income.isEmpty()){
+                    errorDisplay();
+                }
+                else saveData("Business");
+                break;
+            case R.id.addOthersId:
+                if(income.isEmpty()){
+                    errorDisplay();
+                }
+                else saveData("Others");
+                break;
             case R.id.incomeCancelId:
                 Intent intent = new Intent(getApplicationContext(), Registration.class);
                 startActivity(intent);
                 break;
-            case R.id.addIncomeBtnId:
-                String income = amount.getText().toString().trim();
-                if(income.isEmpty()){
-                    amount.setError("Amount can't be empty!");
-                    amount.requestFocus();
-                }
-                else{
-                    saveData();
-                    intent = new Intent(getApplicationContext(), Registration.class);
-                    startActivity(intent);
-                    break;
-                }
 
         }
     }
 
-
-    String itemName;
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        Toast.makeText(getApplicationContext(), itemNames[position], Toast.LENGTH_LONG).show();
-        itemName = itemNames[position];
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
+    private void errorDisplay() {
+        amount.setError("Amount can't be empty!");
+        amount.requestFocus();
     }
 
     public String getTodaysDate()
@@ -107,16 +117,17 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
         day1 = day; month1 = month; year1 = year;
         return makeDateString(day, month, year);
     }
-    private void saveData() {
+    private void saveData(String category) {
         String income = amount.getText().toString().trim();
         if(user!=null) {
             int balance = Integer.parseInt(income);
-            String category = itemName;
             String date = makeDateString(day1, month1, year1);
-            databaseReference.child("Income").child("Category").child(category).setValue(balance);
             String key = databaseReference.push().getKey();
             StoreData storeData = new StoreData(category, balance, date);
             databaseReference.child("Income").child("Information").child(key).setValue(storeData);
+            Toast.makeText(getApplicationContext(),"Data Saved Successfully!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), Registration.class);
+            startActivity(intent);
         }
     }
 

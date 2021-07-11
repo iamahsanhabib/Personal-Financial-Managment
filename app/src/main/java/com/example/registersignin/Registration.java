@@ -122,6 +122,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "You Click All",Toast.LENGTH_SHORT).show();
         }
+        else if (id==R.id.changePassId){
+            Intent intent = new Intent(getApplicationContext(), ResetPassword.class);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "You Click Change Password",Toast.LENGTH_SHORT).show();
+        }
 
         return true;
     }

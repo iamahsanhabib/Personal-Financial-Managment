@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signIn.setOnClickListener(this);
         signUpBtn.setOnClickListener(this);
 
+
     }
 
     @Override

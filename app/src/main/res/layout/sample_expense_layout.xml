@@ -12,7 +12,8 @@
         android:layout_weight="1"
         android:text="22 Jun 2021"
         android:textSize="15sp"
-        android:layout_marginTop="5sp">
+        android:layout_marginTop="5sp"
+        android:fontFamily="sans-serif">
 
     </TextView>
     <TextView
@@ -22,7 +23,8 @@
         android:layout_weight="1"
         android:text="Salary"
         android:textSize="15sp"
-        android:layout_marginTop="5sp">
+        android:layout_marginTop="5sp"
+        android:fontFamily="sans-serif">
 
     </TextView>
     <TextView
@@ -32,7 +34,8 @@
         android:layout_weight="1"
         android:text="4000"
         android:textSize="15sp"
-        android:layout_marginTop="5sp">
+        android:layout_marginTop="5sp"
+        android:fontFamily="sans-serif">
 
     </TextView>
 

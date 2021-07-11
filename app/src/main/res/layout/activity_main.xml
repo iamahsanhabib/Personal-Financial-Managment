@@ -365,6 +365,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_income"
             android:gravity="center"
+            android:clickable="true"
             android:paddingTop="20dp"
             android:paddingBottom="0dp">
 
