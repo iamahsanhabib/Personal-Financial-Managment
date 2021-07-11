@@ -1,7 +1,5 @@
 package com.example.registersignin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,10 +83,17 @@ public class Add_Expense extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.addExpenseBtnId:
-                saveData();
-                intent = new Intent(getApplicationContext(), Registration.class);
-                startActivity(intent);
-                break;
+                String expense = amount.getText().toString().trim();
+                if(expense.isEmpty()){
+                    amount.setError("Amount can't be empty!");
+                    amount.requestFocus();
+                }
+                else{
+                    saveData();
+                    intent = new Intent(getApplicationContext(), Registration.class);
+                    startActivity(intent);
+                    break;
+                }
         }
     }
 
@@ -102,10 +109,6 @@ public class Add_Expense extends AppCompatActivity implements View.OnClickListen
     }
     private void saveData() {
         String expense = amount.getText().toString().trim();
-        if(expense.isEmpty()){
-            amount.setError("Amount can't be empty!");
-            amount.requestFocus();
-        }
         if(user!=null) {
             int balance = Integer.parseInt(expense);
             String category = itemName;

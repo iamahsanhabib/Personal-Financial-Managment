@@ -1,14 +1,11 @@
 package com.example.registersignin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,13 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -73,10 +69,18 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
                 startActivity(intent);
                 break;
             case R.id.addIncomeBtnId:
-                saveData();
-                intent = new Intent(getApplicationContext(), Registration.class);
-                startActivity(intent);
-                break;
+                String income = amount.getText().toString().trim();
+                if(income.isEmpty()){
+                    amount.setError("Amount can't be empty!");
+                    amount.requestFocus();
+                }
+                else{
+                    saveData();
+                    intent = new Intent(getApplicationContext(), Registration.class);
+                    startActivity(intent);
+                    break;
+                }
+
         }
     }
 
@@ -105,10 +109,6 @@ public class Income extends AppCompatActivity implements View.OnClickListener, A
     }
     private void saveData() {
         String income = amount.getText().toString().trim();
-        if(income.isEmpty()){
-            amount.setError("Amount can't be empty!");
-            amount.requestFocus();
-        }
         if(user!=null) {
             int balance = Integer.parseInt(income);
             String category = itemName;
